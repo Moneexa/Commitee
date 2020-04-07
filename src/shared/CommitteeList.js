@@ -20,8 +20,8 @@ class CommitteeList extends Component {
             showSheet: false,
         });
     }
-    handleClick = () => {
-       return (<BottomSheet open={this.state.showSheet} onRequestClose={() => this.setState({ showSheet: false })}>
+    getBottomSheet = () => {
+        return (<BottomSheet open={this.state.showSheet} onRequestClose={() => this.setState({ showSheet: false })}>
             <form id="form1" onSubmit={this.handleSubmit}  >
                 <input type="text" placeholder="Name" value={this.state.Name} onChange={this.handleNameOnChange} />
                 <input className="datepicker" data-date-format="mm/dd/yyyy" value={this.state.start_date} onChange={this.handleStartDateOnChange} />
@@ -33,7 +33,14 @@ class CommitteeList extends Component {
                     <span id="edit-bg-text">Save</span>
                 </button>
             </form>
-        </BottomSheet>);
+        </BottomSheet>)
+
+
+    }
+    handleClick = () => {
+        this.setState({
+            showSheet: true
+        })
 
     }
     handleSubmit = (e) => {
@@ -93,6 +100,10 @@ class CommitteeList extends Component {
                         <p>{values.start_date}</p><span>-</span><p>{values.end_date}</p>
                     </div>)
                 })}
+            </div>
+
+            <div className="d-flex align-items-center justify-content-center">
+                <this.getBottomSheet />
             </div>
 
             <div id="edit-bg" tabIndex="0" role="button" onClick={this.handleClick} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
