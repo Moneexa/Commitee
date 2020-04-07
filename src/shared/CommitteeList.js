@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './CommitteeList.css'
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import BottomSheet from 'react-bottom-sheet';
+import {Modal, Button} from 'react-bootstrap';
 
 class CommitteeList extends Component {
     constructor(props) {
@@ -19,23 +19,6 @@ class CommitteeList extends Component {
         this.setState({
             showSheet: false,
         });
-    }
-    getBottomSheet = () => {
-        return (<BottomSheet open={this.state.showSheet} onRequestClose={() => this.setState({ showSheet: false })}>
-            <form id="form1" onSubmit={this.handleSubmit}  >
-                <input type="text" placeholder="Name" value={this.state.Name} onChange={this.handleNameOnChange} />
-                <input className="datepicker" data-date-format="mm/dd/yyyy" value={this.state.start_date} onChange={this.handleStartDateOnChange} />
-                <input className="datepicker" data-date-format="mm/dd/yyyy" value={this.state.end_date} onChange={this.handleEndDateOnChange} />
-                <input type="text" placeholder="Saving Amount" value={this.state.saving_amount} onChange={this.handleSavingAmountOnChange} />
-
-                <button id="add-bg" tabIndex="0" onClick={this.handleSubmit} className="ep--enhanced">
-                    <div id="edit-bg-icon"></div>
-                    <span id="edit-bg-text">Save</span>
-                </button>
-            </form>
-        </BottomSheet>)
-
-
     }
     handleClick = () => {
         this.setState({
@@ -102,15 +85,25 @@ class CommitteeList extends Component {
                 })}
             </div>
 
-            <div className="d-flex align-items-center justify-content-center">
-                <this.getBottomSheet />
-            </div>
-
-            <div id="edit-bg" tabIndex="0" role="button" onClick={this.handleClick} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
+            <div id="edit-bg" tabIndex="0" role="button" onClick={() => {this.setState({showSheet: true})}} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
                 <div id="edit-bg-icon"></div>
                 <span id="edit-bg-text">+ Create</span>
             </div>
 
+            <Modal show={this.state.showSheet} onHide={() => {this.setState({showSheet: false})}}>
+                <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={() => {this.setState({showSheet: false})}}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={() => {this.setState({showSheet: false})}}>
+                    Save Changes
+                </Button>
+                </Modal.Footer>
+            </Modal>
 
         </div>)
     }
