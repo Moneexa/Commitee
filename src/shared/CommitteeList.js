@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './CommitteeList.css'
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 class CommitteeList extends Component {
     constructor(props) {
@@ -77,12 +77,26 @@ class CommitteeList extends Component {
 
             <div className="flex-direction-column">
                 {this.state.committee_arr.map((values, index) => {
-                    return (<div className="d-flex align-content-center" key={index} style={{ backgroundColor: "#dedbdb" }}>
+                    return (
+                    <div className="d-flex align-items-center" key={index} style={{ backgroundColor: "#dedbdb" }}>
                         <div id="prefix-icon">
                             <FontAwesomeIcon className="prefix-icon" icon={faUserFriends} />
                         </div>
-                        <h4>{values.Name}</h4><br /><br />
-                        <p>{values.start_date}</p><span>-</span><p>{values.end_date}</p>
+                        <div className="flex-grow-1">
+                            <h4 className="m-0 Comitteee_name">{values.Name}</h4>
+                            <div className="d-flex">
+                                <div>
+                                    {values.start_date}
+                                </div>
+                                <span>-</span>
+                                <div>
+                                    {values.end_date}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            ph
+                        </div>
                     </div>
                     )
                 })}
@@ -97,11 +111,18 @@ class CommitteeList extends Component {
 
                 <Modal.Body>
                     <form id="form1" onSubmit={this.handleSubmit} >
-                        <input type="text" value={this.state.Name} onChange={this.handleNameOnChange} placeholder="Name" />
-                        <input type="text" value={this.state.start_date} onChange={this.handleStartDateOnChange} placeholder="Start Date" />
-                        <input type="text" value={this.state.end_date} onChange={this.handleEndDateOnChange} placeholder="End Date" />
-                        <input type="text" value={this.state.saving_amount} onChange={this.handleSavingAmountOnChange} placeholder="Saving Amount" />
-
+                        <Form.Group controlId="name">
+                            <Form.Control type="text" value={this.state.Name} onChange={this.handleNameOnChange} placeholder="Name" />
+                        </Form.Group>
+                        <Form.Group controlId="startDate">
+                            <Form.Control type="date" value={this.state.start_date} onChange={this.handleStartDateOnChange} placeholder="Start Date" />
+                        </Form.Group>
+                        <Form.Group controlId="endDate">
+                            <Form.Control type="date" value={this.state.end_date} onChange={this.handleEndDateOnChange} placeholder="End Date" />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Control type="number" value={this.state.saving_amount} onChange={this.handleSavingAmountOnChange} placeholder="Saving Amount" />
+                        </Form.Group>
 
                     </form>
 
