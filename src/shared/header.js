@@ -10,7 +10,7 @@ class header extends Component {
     render() {
         return (
             <div className="header_comp">
-                <Navbar expand="md sm lg" style={{width:"100%"}}>
+                <Navbar expand="md sm lg" style={{width:"100%"}} className="d-flex align-items-center justify-content-center">
                     
                         <Nav className="parent_div">
                             <Nav.Link>

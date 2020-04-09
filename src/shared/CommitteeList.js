@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './CommitteeList.css'
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class CommitteeList extends Component {
@@ -74,7 +75,6 @@ class CommitteeList extends Component {
     }
     render() {
         return (<div className="CommitteeList_comp">
-
             <div className="flex-direction-column">
                 {this.state.committee_arr.map((values, index) => {
                     return (
@@ -82,7 +82,7 @@ class CommitteeList extends Component {
                         <div id="prefix-icon">
                             <FontAwesomeIcon className="prefix-icon" icon={faUserFriends} />
                         </div>
-                        <div className="flex-grow-1">
+                        <div className="flex-grow-1 ml-2">
                             <h4 className="m-0 Comitteee_name">{values.Name}</h4>
                             <div className="d-flex">
                                 <div>
@@ -94,8 +94,8 @@ class CommitteeList extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            ph
+                        <div className="mr-2">
+                        <FontAwesomeIcon className="prefix_icon" icon={faInfoCircle} />
                         </div>
                     </div>
                     )
