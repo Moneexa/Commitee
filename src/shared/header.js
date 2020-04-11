@@ -15,7 +15,7 @@ class header extends Component {
                         <Nav className="parent_div">
                             <Nav.Link>
 
-                                <h5>Committee Register</h5>
+                                <h5 className="mb-0">Committee Register</h5>
                             </Nav.Link>
                             <Nav.Link>
                                 <div className="prefix_icon">
