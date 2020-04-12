@@ -12,7 +12,7 @@ class CommitteeList extends Component {
             commitee: {
                 Name: "", start_date: "", end_date: "", saving_amount: ""
             },
-            committee_arr: [], showSheet: false, showUpdate: false
+            committee_arr: [], showSheet: false, showUpdate: false, index:0
         }
 
     }
@@ -20,6 +20,7 @@ class CommitteeList extends Component {
         this.setState({
             showSheet: false,
             showUpdate: false,
+            index:0
         });
     }
     handleClick = () => {
@@ -40,7 +41,7 @@ class CommitteeList extends Component {
     }
     else{
         const obj=this.state.commitee;
-        const elementsIndex = this.state.committee_arr.findIndex(element => element.id === e.target.index)
+        const elementsIndex = this.state.index;
         let newArray = [...this.state.committee_arr]
 
         newArray[elementsIndex] = this.state.commitee
@@ -114,12 +115,12 @@ class CommitteeList extends Component {
                             </div>
                             <div className="mr-2">
 
-                                <Dropdown  style={{color:"black", backgroundColor:"transparent"}} index={index}>
+                                <Dropdown  style={{color:"black", backgroundColor:"transparent"}}>
                                     <Dropdown.Toggle>
                                         <FontAwesomeIcon className="prefix__icon" icon={faEllipsisV} />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item  onClick={() => { this.setState({ showSheet: true, showUpdate:true });
+                                        <Dropdown.Item  onClick={() => { this.setState({ showSheet: true, showUpdate:true, index:index });
                                      }} href="#/action-1">Edit</Dropdown.Item>
                                         <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
                                     </Dropdown.Menu>
