@@ -121,43 +121,35 @@ class CommitteeList extends Component {
                                 <FontAwesomeIcon className="prefix-icon" icon={faUserFriends} />
                             </div>
                             <div className="flex-grow-1 ml-2">
-                                <Router>
 
-                                    <Link to="/committeeAtt">
-                                        <h4 component={Link} to="/CommitteeList" className="m-0 Comitteee_name">{values.Name}</h4></Link>
-                                    <Switch>
+                                <h4 component={Link} to="/CommitteeList" className="m-0 Comitteee_name">{values.Name}</h4>
 
-                                        <Route exact path="/committeeAtt">
-                                            <CommitteeAttendance />
-                                        </Route>
-                                    </Switch>
-                                </Router>
-                                <div className="d-flex ">
-                                    <div>
-                                        {values.start_date}
-                                    </div>
-                                    <span>-</span>
-                                    <div>
-                                        {values.end_date}
-                                    </div>
+                            <div className="d-flex ">
+                                <div>
+                                    {values.start_date}
+                                </div>
+                                <span>-</span>
+                                <div>
+                                    {values.end_date}
                                 </div>
                             </div>
-                            <div className="mr-2">
+                        </div>
+                        <div className="mr-2">
 
-                                <Dropdown style={{ color: "black", backgroundColor: "transparent" }}>
-                                    <Dropdown.Toggle>
-                                        <FontAwesomeIcon className="prefix__icon" icon={faEllipsisV} />
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => {
-                                            this.setState({ showSheet: true, showUpdate: true, index: index });
-                                        }} href="#/action-1">Edit</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => {
-                                            this.setState({ index: index }, () => { this.deleteOb(index) })
-                                        }} href="#/action-2">Delete</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </div>
+                            <Dropdown style={{ color: "black", backgroundColor: "transparent" }}>
+                                <Dropdown.Toggle>
+                                    <FontAwesomeIcon className="prefix__icon" icon={faEllipsisV} />
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => {
+                                        this.setState({ showSheet: true, showUpdate: true, index: index });
+                                    }} href="#/action-1">Edit</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => {
+                                        this.setState({ index: index }, () => { this.deleteOb(index) })
+                                    }} href="#/action-2">Delete</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
                         </div>
                     )
                 })}
@@ -199,7 +191,7 @@ class CommitteeList extends Component {
                 </Modal.Footer>
             </Modal>
 
-        </div>)
+        </div >)
     }
 }
 export default CommitteeList
