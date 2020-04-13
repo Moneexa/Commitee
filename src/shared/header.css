@@ -11,7 +11,7 @@
 }
 
 .header_comp .parent_div{
-    display: flex; 
+   display: flex; 
     justify-content: space-between;
     width:100%;
     align-items:center;

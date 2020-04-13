@@ -3,7 +3,11 @@ import './CommitteeList.css'
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form, Dropdown } from 'react-bootstrap';
+import { Switch, BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { CommitteeAttendance } from './CommitteeAttendance'
+
 
 class CommitteeList extends Component {
     constructor(props) {
@@ -12,15 +16,16 @@ class CommitteeList extends Component {
             commitee: {
                 Name: "", start_date: "", end_date: "", saving_amount: ""
             },
-            committee_arr: [], showSheet: false, showUpdate: false, index:0
+            committee_arr: [], showSheet: false, showUpdate: false, index: 0, showSheet2: false
         }
 
     }
     componentDidMount() {
         this.setState({
             showSheet: false,
+            showSheet2: false,
             showUpdate: false,
-            index:0
+            index: 0
         });
     }
     handleClick = () => {
@@ -28,33 +33,47 @@ class CommitteeList extends Component {
             showSheet: true
         })
 
+
+    }
+    deleteOb = (index) => {
+        const newList = JSON.parse(JSON.stringify(this.state.committee_arr));
+        console.log(index);
+        newList.splice(index, 1);
+        this.setState({
+            committee_arr: newList
+        });
+
+
     }
     handleSubmit = (e) => {
         console.log(this.state.showUpdate);
-        if(this.state.showUpdate===false){
-        e.preventDefault();
-        const newList = this.state.committee_arr.concat(this.state.commitee)
-        this.setState({
-            committee_arr: newList
-        })
-        
+        if (this.state.showUpdate === false) {
+            e.preventDefault();
+            const newList = this.state.committee_arr.concat(this.state.commitee)
+            this.setState({
+                committee_arr: newList
+            })
+
+        }
+        else {
+            const obj = this.state.commitee;
+            const elementsIndex = this.state.index;
+            let newArray = [...this.state.committee_arr]
+
+            newArray[elementsIndex] = this.state.commitee
+            console.log(elementsIndex);
+            console.log(newArray[elementsIndex]);
+
+            this.setState({
+                commitee: obj,
+                committee_arr: newArray
+            })
+        }
+        this.setState({ showSheet: false })
+
     }
-    else{
-        const obj=this.state.commitee;
-        const elementsIndex = this.state.index;
-        let newArray = [...this.state.committee_arr]
-
-        newArray[elementsIndex] = this.state.commitee
-        console.log(elementsIndex);
-        console.log(newArray[elementsIndex]);
-
-        this.setState({
-            commitee:obj,
-            committee_arr:newArray
-        })
-    }
-    this.setState({ showSheet: false })
-
+    handleSubmit2 = () => {
+        console.log("got value");
     }
     handleNameOnChange = (e) => {
         var _name = e.target.value;
@@ -102,7 +121,17 @@ class CommitteeList extends Component {
                                 <FontAwesomeIcon className="prefix-icon" icon={faUserFriends} />
                             </div>
                             <div className="flex-grow-1 ml-2">
-                                <h4 className="m-0 Comitteee_name">{values.Name}</h4>
+                                <Router>
+
+                                    <Link to="/committeeAtt">
+                                        <h4 component={Link} to="/CommitteeList" className="m-0 Comitteee_name">{values.Name}</h4></Link>
+                                    <Switch>
+
+                                        <Route exact path="/committeeAtt">
+                                            <CommitteeAttendance />
+                                        </Route>
+                                    </Switch>
+                                </Router>
                                 <div className="d-flex ">
                                     <div>
                                         {values.start_date}
@@ -115,14 +144,17 @@ class CommitteeList extends Component {
                             </div>
                             <div className="mr-2">
 
-                                <Dropdown  style={{color:"black", backgroundColor:"transparent"}}>
+                                <Dropdown style={{ color: "black", backgroundColor: "transparent" }}>
                                     <Dropdown.Toggle>
                                         <FontAwesomeIcon className="prefix__icon" icon={faEllipsisV} />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item  onClick={() => { this.setState({ showSheet: true, showUpdate:true, index:index });
-                                     }} href="#/action-1">Edit</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2">Delete</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => {
+                                            this.setState({ showSheet: true, showUpdate: true, index: index });
+                                        }} href="#/action-1">Edit</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => {
+                                            this.setState({ index: index }, () => { this.deleteOb(index) })
+                                        }} href="#/action-2">Delete</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
@@ -131,7 +163,7 @@ class CommitteeList extends Component {
                 })}
             </div>
 
-            <div id="edit-bg" tabIndex="0" role="button" onClick={() => { this.setState({ showSheet: true,showUpdate:false }) }} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
+            <div id="edit-bg" tabIndex="0" role="button" onClick={() => { this.setState({ showSheet: true, showUpdate: false }) }} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
                 <div id="edit-bg-icon"></div>
                 <span id="edit-bg-text">+ Create</span>
             </div>

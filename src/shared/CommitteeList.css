@@ -64,3 +64,11 @@
 .CommitteeList_comp .Comitteee_name {
     text-align: left;
 }
+
+.CommitteeList_comp .CommitteeList_comp .dropdown button{
+    
+        color: black;
+         background-color:transparent; 
+        border-color:transparent; 
+    
+}
