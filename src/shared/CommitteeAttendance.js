@@ -216,22 +216,10 @@ class CommitteeAttendance extends Component {
                                 <TableCell>{value}</TableCell>
                                 {this.state.days.map((index) => {
                                     return (<TableCell>
-                                        <Form>
-                                            {['checkbox'].map((type) => (
-                                                <div key={`custom-${type}`} className="mb-3">
-                                                    <Form.Check
-                                                        
-                                                        custom
-                                                        type={type}
-                                                    
-                                                    label=""
-
-                                                    
-
-                                                    />
-                                                </div>
-                                            ))}
-                                        </Form>
+                                        {/* Use this method if you want to use raw html */}
+                                        {/* <input type="checkbox"/> */}
+                                        
+                                        <Form.Check type="checkbox" />
                                     </TableCell>)
 
 
