@@ -25,12 +25,12 @@ class CommitteeAttendance extends Component {
         this.state = {
 
             month: "",
-             members: [], 
-             showSheet: false,
+            members: [],
+            showSheet: false,
             days: [],
-             name: "",
-             options:[]
-            
+            name: "",
+            options: []
+
         }
     }
     componentDidMount() {
@@ -88,31 +88,31 @@ class CommitteeAttendance extends Component {
                     value: "12"
                 }
             ]
-        },()=>{ 
+        }, () => {
             console.log(this.state.month)
-            var _val=0;
-            for(let val of this.state.options){
-                if(val.label===this.state.month){
-                    _val=val.value;
+            var _val = 0;
+            for (let val of this.state.options) {
+                if (val.label === this.state.month) {
+                    _val = val.value;
                 }
             }
             console.log(_val)
-    
+
             var _numberOfDays = this.numberOfDays(_val, 2020);
-    
+
             console.log(_numberOfDays);
             var _days = [];
-        for (let i = 1; i <= _numberOfDays; i++) {
-            _days.push(i);
-        }
-        this.setState({
-            days: _days
-        })
+            for (let i = 1; i <= _numberOfDays; i++) {
+                _days.push(i);
+            }
+            this.setState({
+                days: _days
+            })
         })
 
-       
-        
-        
+
+
+
 
     }
     numberOfDays = (_month, year) => {
@@ -121,10 +121,10 @@ class CommitteeAttendance extends Component {
     handleMonthChange = (e) => {
         var _month = e.target.value;
 
-        var _val=0;
-        for(let val of this.state.options){
-            if(val.label===_month){
-                _val=val.value;
+        var _val = 0;
+        for (let val of this.state.options) {
+            if (val.label === _month) {
+                _val = val.value;
             }
         }
         console.log(_val)
@@ -173,102 +173,114 @@ class CommitteeAttendance extends Component {
                         <Form.Group controlId="exampleForm.SelectCustom">
                             <Form.Label>Select Month</Form.Label>
                             <Form.Control as="select" onChange={this.handleMonthChange} >
-                             {this.state.options.map((values,index)=>{
-                             return( 
-                             <option index={values.value} value={values.label} 
-                             >
-                                   {values.label}
+                                {this.state.options.map((values, index) => {
+                                    return (
+                                        <option index={values.value} value={values.label}
+                                        >
+                                            {values.label}
 
-                             </option>
-                             )
+                                        </option>
+                                    )
 
-                             })}
+                                })}
 
                             </Form.Control>
-                            </Form.Group>
-                            </Form>
-                           
+                        </Form.Group>
+                    </Form>
+
                 </div>
 
 
 
             </div>
-                    <TableContainer >
-                        <Table className="classes" size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Committee Member</TableCell>
+            <TableContainer >
+                <Table className="classes" size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Committee Member</TableCell>
 
-                                    {this.state.days.map((value) => {
-                                        return (
-                                            <TableCell>
-                                                {value}
-                                            </TableCell>
+                            {this.state.days.map((value) => {
+                                return (
+                                    <TableCell>
+                                        {value}
+                                    </TableCell>
 
-                                        )
-                                    }
-                                    )}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.state.members.map((value) => {
-                                    return (<TableRow key={value}>
-                                        <TableCell>{value}</TableCell>
-                                        {this.state.days.map((index) => {
-                                            return (<TableCell>
-                                                <div className="custom-control custom-checkbox" >
-                                                    <input type="checkbox" className="custom-control-input" id="defaultUnchecked" key={index} unchecked="true" />
-                                                    <label className="custom-control-label" htmlFor="defaultUnchecked" />
+                                )
+                            }
+                            )}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.state.members.map((value, indx) => {
+                            return (<TableRow key={value}>
+                                <TableCell>{value}</TableCell>
+                                {this.state.days.map((index) => {
+                                    return (<TableCell>
+                                        <Form>
+                                            {['checkbox'].map((type) => (
+                                                <div key={`custom-${type}`} className="mb-3">
+                                                    <Form.Check
+                                                        
+                                                        custom
+                                                        type={type}
+                                                    
+                                                    label=""
+
+                                                    
+
+                                                    />
                                                 </div>
-                                            </TableCell>)
-
-
-                                        })}
-
-
-
-
-                                    </TableRow>)
-
+                                            ))}
+                                        </Form>
+                                    </TableCell>)
 
 
                                 })}
 
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <div id="edit-bg" tabIndex="0" role="button" onClick={() => { this.setState({ showSheet: true }) }} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
-                        <div id="edit-bg-icon"></div>
-                        <span id="edit-bg-text">+ Add Member</span>
-                    </div>
-                    <Modal show={this.state.showSheet} onHide={() => { this.setState({ showSheet: false }) }}>
-
-                        <Modal.Body>
-                            <form id="form1" onSubmit={this.handleSubmit} >
-                                <Form.Group controlId="name">
-                                    <Form.Control type="text" value={this.state.value} onChange={this.handleNameOnChange} placeholder="Name" />
-                                </Form.Group>
-
-                            </form>
 
 
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={() => { this.setState({ showSheet: false }) }}>
-                                Close
+
+                            </TableRow>)
+
+
+
+                        })}
+
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <div id="edit-bg" tabIndex="0" role="button" onClick={() => { this.setState({ showSheet: true }) }} className="ep-enhanced" aria-label="Customize this page" title="Customize this page">
+                <div id="edit-bg-icon"></div>
+                <span id="edit-bg-text">+ Add Member</span>
+            </div>
+            <Modal show={this.state.showSheet} onHide={() => { this.setState({ showSheet: false }) }}>
+
+                <Modal.Body>
+                    <form id="form1" onSubmit={this.handleSubmit} >
+                        <Form.Group controlId="name">
+                            <Form.Control type="text" value={this.state.value} onChange={this.handleNameOnChange} placeholder="Name" />
+                        </Form.Group>
+
+                    </form>
+
+
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => { this.setState({ showSheet: false }) }}>
+                        Close
 </Button>
-                            <Button variant="primary" onClick={this.handleSubmit}>
-                                Save Changes
+                    <Button variant="primary" onClick={this.handleSubmit}>
+                        Save Changes
 </Button>
-                        </Modal.Footer>
-                    </Modal>
+                </Modal.Footer>
+            </Modal>
 
 
 
 
 
-                </div>)
+        </div>)
     }
 }
 
-export {CommitteeAttendance};
+export { CommitteeAttendance };
