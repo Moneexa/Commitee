@@ -29,7 +29,14 @@ class CommitteeAttendance extends Component {
             showSheet: false,
             days: [],
             name: "",
-            options: []
+            options: [], attendees: [],
+            obj:{
+                 month: "", member_name: "", attended_days: [] 
+                }
+
+            
+
+            
 
         }
     }
@@ -87,7 +94,15 @@ class CommitteeAttendance extends Component {
                     label: "December",
                     value: "12"
                 }
-            ]
+            ],
+            attendees: [],
+            obj:{
+                 month: "", member_name: "", attended_days: [] 
+                }
+
+            
+
+
         }, () => {
             console.log(this.state.month)
             var _val = 0;
@@ -119,6 +134,7 @@ class CommitteeAttendance extends Component {
         return (new Date(year, _month, 0).getDate());
     }
     handleMonthChange = (e) => {
+        console.log(this.state.members);
         var _month = e.target.value;
 
         var _val = 0;
@@ -160,6 +176,38 @@ class CommitteeAttendance extends Component {
         console.log(this.state.members)
     }
 
+    handleMarkDay=(e)=>{
+        if(e.target.checked===true){
+            var _arr=(e.target.value).split(",");
+            var days_attended=this.state.obj.attended_days;
+            var member=_arr[1], days=_arr[0];
+            days_attended=days_attended.concat(days);
+            console.log(days_attended);
+    
+            this.setState({
+                obj:
+                   { month:this.state.month,
+                    member_name:member,
+                    attended_days:days_attended
+                   }
+                
+            })
+            console.log(this.state.obj)
+
+        }
+       
+        
+        
+
+
+
+
+    
+       
+
+
+
+    }
 
     render() {
         return (<div className="CommitteeAttendance">
@@ -216,10 +264,8 @@ class CommitteeAttendance extends Component {
                                 <TableCell>{value}</TableCell>
                                 {this.state.days.map((index) => {
                                     return (<TableCell>
-                                        {/* Use this method if you want to use raw html */}
-                                        {/* <input type="checkbox"/> */}
-                                        
-                                        <Form.Check type="checkbox" />
+                                        <Form.Check type="checkbox"  onChange={this.handleMarkDay} value={index+","+ value}/>
+
                                     </TableCell>)
 
 
