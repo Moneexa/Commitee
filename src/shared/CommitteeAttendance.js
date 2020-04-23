@@ -30,13 +30,22 @@ class CommitteeAttendance extends Component {
             days: [],
             name: "",
             options: [], attendees: [],
-            obj:{
-                 month: "", member_name: "", attended_days: [] 
+            obj: {
+                month:
+                {
+                    member:
+                    {
+
+                        day: []
+
+                    }
+
                 }
+            }
 
-            
 
-            
+
+
 
         }
     }
@@ -96,11 +105,19 @@ class CommitteeAttendance extends Component {
                 }
             ],
             attendees: [],
-            obj:{
-                 month: "", member_name: "", attended_days: [] 
-                }
+            obj: {
+                month:
+                {
+                    member:
+                    {
 
-            
+                        day: []
+
+                    }
+
+                }
+            }
+
 
 
         }, () => {
@@ -176,34 +193,39 @@ class CommitteeAttendance extends Component {
         console.log(this.state.members)
     }
 
-    handleMarkDay=(e)=>{
-        if(e.target.checked===true){
-            var _arr=(e.target.value).split(",");
-            var days_attended=this.state.obj.attended_days;
-            var member=_arr[1], days=_arr[0];
-            days_attended=days_attended.concat(days);
+    handleMarkDay = (e, index, value) => {
+        if (e.target.checked === true) {
+            let objCopy = JSON.parse(JSON.stringify(this.state.obj))
+            var days_attended = objCopy.month.member.day;
+            var _member = value, days = index;
+            days_attended = days_attended.concat(days);
             console.log(days_attended);
-    
-            this.setState({
-                obj:
-                   { month:this.state.month,
-                    member_name:member,
-                    attended_days:days_attended
-                   }
-                
-            })
-            console.log(this.state.obj)
+            //this.state.obj.month=this.state.month;
+            
+            var _month=this.state.month
+           
+             objCopy.month=_month
+
+            
+            //objCopy.month.member=_member;
+            console.log(objCopy);
+
+           /* this.setState({
+                obj:objCopy
+               
+
+            })*/
 
         }
-       
-        
-        
 
 
 
 
-    
-       
+
+
+
+
+
 
 
 
@@ -263,10 +285,11 @@ class CommitteeAttendance extends Component {
                             return (<TableRow key={value}>
                                 <TableCell>{value}</TableCell>
                                 {this.state.days.map((index) => {
-                                    return (<TableCell>
-                                        <Form.Check type="checkbox"  onChange={this.handleMarkDay} value={index+","+ value}/>
+                                    return (
+                                        <TableCell>
+                                            <Form.Check type="checkbox" onChange={(e) => this.handleMarkDay(e, index, value)} />
 
-                                    </TableCell>)
+                                        </TableCell>)
 
 
                                 })}
