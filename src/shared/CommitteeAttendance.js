@@ -27,7 +27,7 @@ class CommitteeAttendance extends Component {
             month: "",
             members: [],
             showSheet: false,
-            days: [],
+            days: [], _days: [],
             name: "",
             options: [], attendees: [],
             obj: {
@@ -195,29 +195,70 @@ class CommitteeAttendance extends Component {
 
     handleMarkDay = (e, index, value) => {
         if (e.target.checked === true) {
-            let objCopy = JSON.parse(JSON.stringify(this.state.obj))
-            var days_attended = objCopy.month.member.day;
-            var _member = value, days = index;
-            days_attended = days_attended.concat(days);
+            let objCopy = {}
+            var days_attended = this.state._days;
             console.log(days_attended);
+            var _member = value, _day = index;
+            days_attended = days_attended.concat(_day);
+            // console.log(days_attended);
             //this.state.obj.month=this.state.month;
-            
-            var _month=this.state.month
-           
-             objCopy.month=_month
 
-            
+            var _month = this.state.month
+
+            objCopy = {
+                [_month]: {
+                    [_member]: {
+                        days: days_attended
+                    }
+                }
+            }
+
+
             //objCopy.month.member=_member;
-            console.log(objCopy);
+            this.setState({ _days: days_attended })
+            //Object.assign(this.state.obj, objCopy);
+            this.setState({ obj: objCopy }, () => {
+                console.log(this.state.obj);
 
-           /* this.setState({
-                obj:objCopy
-               
+            })
 
-            })*/
+            /* this.setState({
+                 obj:objCopy
+                
+ 
+             })*/
 
         }
+        else {
+            let objCopy = {}
+            var days_attended = this.state._days;
+            console.log(days_attended);
+            var _member = value, _day = index - 1;
+            days_attended.splice(_day, 1);
+            console.log(days_attended);
+            //this.state.obj.month=this.state.month;
 
+            var _month = this.state.month
+
+            objCopy =
+            {
+                [_month]: {
+                    [_member]: {
+                        days: days_attended
+                    }
+                }
+            }
+
+
+            //objCopy.month.member=_member;
+            this.setState({ _days: days_attended })
+
+            this.setState({ obj: objCopy }, () => {
+                console.log(this.state.obj);
+
+            })
+
+        }
 
 
 
