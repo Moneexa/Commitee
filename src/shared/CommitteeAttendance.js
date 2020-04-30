@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Form, Modal, Button } from 'react-bootstrap'
+
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
@@ -380,5 +381,7 @@ class CommitteeAttendance extends Component {
         </div>)
     }
 }
+
+
 
 export { CommitteeAttendance };

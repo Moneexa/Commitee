@@ -7,6 +7,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Button, Form, Dropdown } from 'react-bootstrap';
 import { Switch, BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { CommitteeAttendance } from './CommitteeAttendance'
+import { connect } from 'react-redux';
 
 
 class CommitteeList extends Component {
@@ -16,7 +17,7 @@ class CommitteeList extends Component {
             commitee: {
                 Name: "", start_date: "", end_date: "", saving_amount: ""
             },
-            committee_arr: [], showSheet: false, showUpdate: false, index: 0, showSheet2: false
+            committee_arr: this.props.committee_arr, showSheet: false, showUpdate: false, index: 0, showSheet2: false
         }
 
     }
@@ -70,6 +71,7 @@ class CommitteeList extends Component {
             })
         }
         this.setState({ showSheet: false })
+        console.log(this.state.committee_arr)
 
     }
     handleSubmit2 = () => {
@@ -194,4 +196,24 @@ class CommitteeList extends Component {
         </div >)
     }
 }
-export default CommitteeList
+const mapStateToProps = (state) => {
+    const _committee_arr=state.committee_arr;
+return {
+committee_arr:_committee_arr
+};
+
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+
+    addCommittee: (commitee) => dispatch({ payload: commitee, type: 'AddCommittee' }),
+    delCommittee: (commitee)=>dispatch({ payload:commitee, type: 'DeleteCommittee' }),
+    upCommittee: (commitee)=>dispatch({ payload:commitee, type:'UpdateCommittee'})
+
+    }
+
+
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(CommitteeList);
