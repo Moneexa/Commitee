@@ -17,7 +17,7 @@ class CommitteeList extends Component {
             commitee: {
                 Name: "", start_date: "", end_date: "", saving_amount: ""
             },
-            committee_arr: this.props.committee_arr, showSheet: false, showUpdate: false, index: 0, showSheet2: false
+            // committee_arr: this.props.committee_arr, showSheet: false, showUpdate: false, index: 0, showSheet2: false
         }
 
     }
@@ -50,10 +50,11 @@ class CommitteeList extends Component {
         console.log(this.state.showUpdate);
         if (this.state.showUpdate === false) {
             e.preventDefault();
-            const newList = this.state.committee_arr.concat(this.state.commitee)
-            this.setState({
-                committee_arr: newList
-            })
+            this.props.addCommittee(this.state.commitee);
+            // const newList = this.state.committee_arr.concat(this.state.commitee)
+            // this.setState({
+            //     committee_arr: newList
+            // })
 
         }
         else {
@@ -116,7 +117,7 @@ class CommitteeList extends Component {
     render() {
         return (<div className="CommitteeList_comp">
             <div className="flex-direction-column">
-                {this.state.committee_arr.map((values, index) => {
+                {this.props.committee_arr.map((values, index) => {
                     return (
                         <div className="d-flex align-items-center" key={index} style={{ backgroundColor: "#dedbdb" }}>
                             <div id="prefix-icon">
