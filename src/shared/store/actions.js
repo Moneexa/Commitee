@@ -1,7 +1,7 @@
 export const actions = {
-    addCommittee: { type: 'AddCommittee' },
-    delCommittee: { type: 'DeleteCommittee' },
-    upCommittee:{type:'UpdateCommittee'},
+    addCommittee: { payload:{}, type: 'AddCommittee' },
+    delCommittee: { payload:{}, type: 'DeleteCommittee' },
+    upCommittee:{ payload:{}, type:'UpdateCommittee'},
     addMember:{type:'AddMember'},
     removeMember:{type:'RemoveMember'},
     markAtt:{type:'MarkAttendance'}
