@@ -27,25 +27,19 @@ function committeeReducer(state = initialState, action) {
             return state;
 
         case actions.delCommittee.type:
-            return Object.assign(
-                {},
-                state,
-                {
-                    committee_arr: [
-                        ...state.committee_arr]
-
-                }
-            );
+            let newArr=state.committee_arr;
+            let index=action.payload.index;
+            newArr.splice(index,1);
+            return Object.assign({}, state,{committee_arr:newArr})
+           //return state;
         case actions.upCommittee.type:
-            return Object.assign(
-                {},
-                state,
-                {
-                    committee_arr: action.committee_arr
+            let newArray = state.committee_arr;
+            let elementsIndex=action.payload.index
 
+            newArray[elementsIndex] = action.payload.arr
+             return Object.assign({}, state, {committee_arr:newArray})
+            
 
-                }
-            );
         case actions.addMember.type:
             return Object.assign(
                 {},
