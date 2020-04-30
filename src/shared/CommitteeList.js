@@ -37,9 +37,9 @@ class CommitteeList extends Component {
 
     }
     deleteOb = (index) => {
-        const newList = JSON.parse(JSON.stringify(this.state.committee_arr));
+       /* const newList = JSON.parse(JSON.stringify(this.state.committee_arr));
         console.log(index);
-        newList.splice(index, 1);
+        newList.splice(index, 1);*/
         /*this.setState({
             committee_arr: newList
         });*/
