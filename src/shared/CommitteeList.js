@@ -40,9 +40,10 @@ class CommitteeList extends Component {
         const newList = JSON.parse(JSON.stringify(this.state.committee_arr));
         console.log(index);
         newList.splice(index, 1);
-        this.setState({
+        /*this.setState({
             committee_arr: newList
-        });
+        });*/
+        this.props.delCommittee(index)
 
 
     }
@@ -60,19 +61,20 @@ class CommitteeList extends Component {
         else {
             const obj = this.state.commitee;
             const elementsIndex = this.state.index;
-            let newArray = [...this.state.committee_arr]
+            /*let newArray = [...this.state.committee_arr]
 
             newArray[elementsIndex] = this.state.commitee
             console.log(elementsIndex);
-            console.log(newArray[elementsIndex]);
+            console.log(newArray[elementsIndex]);*/
 
             this.setState({
                 commitee: obj,
-                committee_arr: newArray
             })
+            this.props.upCommittee(this.state.commitee, elementsIndex);
+
         }
         this.setState({ showSheet: false })
-        console.log(this.state.committee_arr)
+        console.log(this.props.committee_arr)
 
     }
     handleSubmit2 = () => {
@@ -209,8 +211,8 @@ const mapDispatchToProps = dispatch => {
     return{
 
     addCommittee: (commitee) => dispatch({ payload: commitee, type: 'AddCommittee' }),
-    delCommittee: (commitee)=>dispatch({ payload:commitee, type: 'DeleteCommittee' }),
-    upCommittee: (commitee)=>dispatch({ payload:commitee, type:'UpdateCommittee'})
+    delCommittee: (index)=>dispatch({ payload:index, type: 'DeleteCommittee' }),
+    upCommittee: (commitee, elementsIndex)=>dispatch({ payload:{arr:commitee, index:elementsIndex}, type:'UpdateCommittee'})
 
     }
 
